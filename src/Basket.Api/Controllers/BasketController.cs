@@ -43,42 +43,5 @@ namespace Basket.Api.Controllers
             return Ok(await _repository.DeleteBasket(userName));
         }
 
-        [Route("[action]")]
-        [HttpPost]
-        [ProducesResponseType((int)HttpStatusCode.Accepted)]
-        [ProducesResponseType((int)HttpStatusCode.BadRequest)]
-        public async Task<ActionResult> Checkout([FromBody] BasketCheckout basketCheckout)
-        {
-            var basket = await _repository.GetBasket(basketCheckout.UserName);
-            if (basket == null)
-            {
-                _logger.LogError($"{basketCheckout.UserName} user basket isn't exist ");
-                return BadRequest();
-            }
-
-            var basketRemoved = await _repository.DeleteBasket(basketCheckout.UserName);
-            if (!basketRemoved)
-            {
-                _logger.LogError("Couldn't deleted!");
-                return BadRequest();
-            }
-
-            //var eventMessage = _mapper.Map<BasketCheckoutEvent>(basketCheckout);
-            //eventMessage.RequestId = Guid.NewGuid();
-            //eventMessage.TotalPrice = basket.TotalPrice;
-
-            //try
-            //{
-            //    _eventBus.PublishBasketCheckout(EventBusConstants.BasketCheckoutQueue, eventMessage);
-            //}
-            //catch (Exception ex)
-            //{
-            //    _logger.LogError(ex, "ERROR Publishing integration event: {EventId} from {AppName}", eventMessage.RequestId, "Basket");
-            //    throw;
-            //}
-
-            return Accepted();
-        }
-
     }
 }
