@@ -12,35 +12,42 @@ namespace Basket.Api.Controllers
     [ApiController]
     public class BasketController : ControllerBase
     {
-        private readonly IBasketRepository _repository;
-        private readonly ILogger<BasketController> _logger;
+        private readonly IBasketRepository _basketRepository;
+        private readonly IStockRepository _stockRepository;
 
-        public BasketController(IBasketRepository repository, ILogger<BasketController> logger)
+        public BasketController(IBasketRepository basketRepository, IStockRepository stockRepository)
         {
-            _repository = repository;
-            _logger = logger;
+            _basketRepository = basketRepository;
+            _stockRepository = stockRepository;
         }
 
         [HttpGet]
         [ProducesResponseType(typeof(BasketCart), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<BasketCart>> GetBasket(string userName)
+        public async Task<IActionResult> GetBasket(string userName)
         {
-            var basket = await _repository.GetBasket(userName);
+            var basket = await _basketRepository.GetBasket(userName);
             return Ok(basket ?? new BasketCart(userName));
         }
 
         [HttpPost]
         [ProducesResponseType(typeof(BasketCart), (int)HttpStatusCode.OK)]
-        public async Task<ActionResult<BasketCart>> UpdateBasket([FromBody] BasketCart basket)
+        public async Task<IActionResult> UpdateBasket([FromBody] BasketCart basket)
         {
-            return Ok(await _repository.UpdateBasket(basket));
+            return Ok(await _basketRepository.UpdateBasket(basket));
+        }
+
+        [HttpPost]
+        [ProducesResponseType(typeof(BasketCart), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> ControlProductStock([FromBody] BasketCartItem basketCartItem)
+        {
+            return Ok(await _stockRepository.ControlProductStock(basketCartItem));
         }
 
         [HttpDelete("{userName}")]
         [ProducesResponseType(typeof(void), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> DeleteBasket(string userName)
         {
-            return Ok(await _repository.DeleteBasket(userName));
+            return Ok(await _basketRepository.DeleteBasket(userName));
         }
 
     }
