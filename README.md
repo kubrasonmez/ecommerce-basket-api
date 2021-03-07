@@ -17,7 +17,7 @@ docker-compose -f docker-compose.yml -f docker-compose.override.yml up –d
 3. Wait for docker compose all services.
 
 4. You can launch 
-* **Basket API -> http://localhost:8001/swagger/index.html**
+* **Basket API -> http://localhost:8000/swagger/index.html**
 
 ##Basket Api
 
