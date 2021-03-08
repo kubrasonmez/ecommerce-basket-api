@@ -5,7 +5,11 @@ I've implemented ecommerce-basket-api repository.
 * ASP.NET Core Web API application 
 * REST API principles, CRUD operations 
 * **Redis** connection as a Database on docker
+* Containerization of Basket Api.
+* Containerization of Redis.
+* Compose All Docker Containers
 * Xunit Unit Test project.
+
 
 ## Installing
 Follow these steps to get your development environment set up: (Before Run Start the Docker Desktop)
