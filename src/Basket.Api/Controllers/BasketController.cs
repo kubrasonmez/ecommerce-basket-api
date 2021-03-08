@@ -36,8 +36,9 @@ namespace Basket.Api.Controllers
             return Ok(await _basketRepository.UpdateBasket(basket));
         }
 
+        [Route("[action]")]
         [HttpPost]
-        [ProducesResponseType(typeof(BasketCart), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(BasketCartItem), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> ControlProductStock([FromBody] BasketCartItem basketCartItem)
         {
             return Ok(await _stockRepository.ControlProductStock(basketCartItem));

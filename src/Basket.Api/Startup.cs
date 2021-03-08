@@ -38,6 +38,7 @@ namespace Basket.Api
 
             services.AddTransient<IBasketContext, BasketContext>();
             services.AddTransient<IBasketRepository, BasketRepository>();
+            services.AddTransient<IStockRepository, StockRepository>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>

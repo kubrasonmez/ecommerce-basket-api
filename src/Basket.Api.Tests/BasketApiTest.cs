@@ -86,7 +86,7 @@ namespace Basket.Api.Tests
 
             if (value)
             {
-                //Add new item to basket cart.
+                //Add new item to basket cart because product stock is sufficient.
                 returnCartGetBasket.Items.Add(GetTestCartItem());
 
                 //Update basket cart
@@ -100,6 +100,7 @@ namespace Basket.Api.Tests
             }
             else
             {
+                // Product stock isn't sufficient so couldn't update basket cart.
                 Assert.Equal<int>(cartItemsCount, returnCartGetBasket.Items.Count);
             }
         }
